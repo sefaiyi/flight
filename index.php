@@ -21,7 +21,7 @@ Flight::route('POST /register', function () {
     if(isset($obj)){
         if(!empty($obj->user) && !empty($obj->pass)){
             $db = Flight::db();
-            $ex = $db->prepare("INSERT INTO yetkili SET kAdi=:u, kSifre=:p");
+            $ex = $db->prepare("INSERT INTO manage SET manage_user=:u, manage_pass=:p");
             $ex->bindValue(":u", $obj->user);
             $ex->bindValue(":p", $obj->pass);
             $ex->execute();
@@ -39,7 +39,7 @@ Flight::route('POST /register', function () {
 // User List
 Flight::route('GET /user_list', function () {
     $db = Flight::db();
-    $ex = $db->query("SELECT * FROM yetkili ORDER BY id DESC")->fetchAll();
+    $ex = $db->query("SELECT * FROM manage ORDER BY manage_id DESC")->fetchAll();
     Flight::json(array(str_replace('/','',Flight::request()->url)=>$ex));
 });
 
